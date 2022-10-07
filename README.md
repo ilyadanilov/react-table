@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Разработать SPA Таблицу, типа как Excel в браузере.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. 4 фиксированных колонки, не надо создавать новые или менять размер.
 
-## Available Scripts
+    	1. Четвёртая колонка - Дата (a)
+    	2. Первая колонка - Название (b)
+    		а. Сортировка Названий (по алфавиту)
+    	3.Вторая колонка - Количество (c)
+    		а. Сортировка по Количеству(от маленького к большому и наоборот)
+    	4. Третья колонка - Расстояние (d)
+    		а. Сортировка по расстоянию (дальше ближе)
 
-In the project directory, you can run:
+## 2. Фильтрация: два выпадающих списка и текстовое поле.
 
-### `npm start`
+    У меня фильтация сложнее примера из bootstrap: есть возможность ограничится поиском в конкретном столбце и выбрать тип сравнения, в примере всегда содержит
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    1. В первом выпадающем списке - выбор колонки (Дата, сортировка, количество, расстояние)
+    2. Опции для фильтрации значения из поля ввода во втором выпадающем списке :
+      a. Равно =
+      b. Больше >
+      c. Меньше <
+      d. Содержит (вообще есть такое значение или нет?) По умолчанию.
+    3. Поле для ввода информации, с которой будет проводиться сравнения выбранной опцией (filter(5>)) <<<--- показать только строки из выбранной колонкой с значениями в этой колонке меньше пяти
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 3. Pagination для таблицы. Как в примере bootstrap ниже.
 
-### `npm test`
+    	- При нажатии на номер страницы, без перезагрузки меняются данные в таблице.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Ссылка на таблицу Bootstrap](https://mdbootstrap.com/docs/b4/jquery/tables/pagination/)
 
-### `npm run build`
+    ТУТ ПРО БАЗЫ ДАННЫХ, ОЧЕНЬ ВАЖНО
+    ||
+    ||
+    ||
+    ||
+    \ /
+    \/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Нужна база данных, может быть и PostgreSQL, но написанно МОЖЕТ БЫТЬ, база данных может быть другой!!!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br>
+<br>
+<br>
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> # Что мне понравилось в примере, что я хочу добавить, если будет время.
 
-### `npm run eject`
+Я только что нашёл отличный пример того, что мне нужно получить на Bootstrap'e, я даже не буду искать дальше ни дизайн, ни такую же таблицу на Реакте, я буду пользоваться этим примером
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    Мне нравиться:
+    1. Опция выбрать количество показываемых строк в таблице: 10, 50, 100.
+    2. Поиск фильтрует таблицу динамически, от одного символа и больше, нет необходимости нажимать какие-то кнопки
+    3. Пагинация работает без перезагрузки
+    4. Фильтрация без перезагрузки
+    5. В колонках показываются стрелочкой как сейчас рассортированы строки, у неактивного столбика серые, в активном черная стрелочка вниз или вверх, в зависимости от того, в какую сторону сортируется.
+    6. Под таблицей string с текстом показывает какие строки таблицы сейчас видны сколько всего строк в таблице
+    Пример:
+    Showing 1 to 10 of 54 entries (filtered from 57 total entries)
+    7. Когда включен фильтр, string с текстом показывает сколько сейчас строк на экране и их нумерацию.
+    8. При нажатии на пагинацию меняется string под таблицей и показывает номера строк с x по y
+    9. В самом низу таблицы продублированы названия колонок, чтобы я не терялся в них.
+    10. У пагинации есть кнопки назад вперёд
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    Короче я распишу на скриншоте
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+https://www.markdownguide.org/cheat-sheet/#basic-syntax
