@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Table from "./Table";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         Здесь я хочу перечислить требования ТЗ и мой ход мысли по тестовому,
         подробно описать, как что делал, если будет время
       </p>
+      <Table />
     </>
   );
 }
