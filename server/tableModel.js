@@ -16,6 +16,7 @@ const getRows = () => {
       if (error) {
         reject(error);
       }
+      console.log(results);
       resolve(results.rows);
     });
   });

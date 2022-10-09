@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function Table() {
   const [rows, setRows] = useState(false);
   function getRows() {
-    fetch("http://localhost:3001")
+    fetch("http://localhost:8080")
       .then((response) => {
         return response.text();
       })
@@ -33,7 +33,7 @@ export default function Table() {
       });
   }
   function deleteMerchant() {
-    let id = prompt("Enter merchant id");
+    const id = prompt("Enter merchant id");
     fetch(`http://localhost:3001/merchants/${id}`, {
       method: "DELETE",
     })
