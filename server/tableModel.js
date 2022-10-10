@@ -12,11 +12,9 @@ const pool = new Pool({
 const getRows = () => {
   return new Promise(function (resolve, reject) {
     pool.query("SELECT * FROM mytable ORDER BY id ASC", (error, results) => {
-      console.log(results);
       if (error) {
         reject(error);
       }
-      console.log(results);
       resolve(results.rows);
     });
   });

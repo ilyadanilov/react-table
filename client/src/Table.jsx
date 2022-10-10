@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function Table() {
   const [rows, setRows] = useState(false);
   function getRows() {
-    fetch("http://localhost:8080")
+    fetch("http://localhost:8080/getRows")
       .then((response) => {
         return response.text();
       })

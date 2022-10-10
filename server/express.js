@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/", (req, res) => {
+app.get("/getRows", (req, res) => {
   tableModel
     .getRows()
     .then((response) => {
