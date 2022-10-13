@@ -1,11 +1,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const webpack = require("webpack");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  mode: "development",
-  entry: ["./src/index.js", "webpack-hot-middleware/client"],
+  mode: isDevelopment ? "development" : "production",
+  entry: ["./client/src/index.js", "webpack-hot-middleware/client"],
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "bundle.js",
@@ -14,14 +16,21 @@ module.exports = {
   devServer: {
     host: "localhost",
     port: 8080,
-    historyApiFallback: true,
+    hot: true,
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node-modules/,
+        exclude: /node_modules/,
         loader: "babel-loader",
+        options: {
+          plugins:
+            // require.resolve находит путь к плагину, а фильтр нужен, чтобы убрать isDevelopment
+            [isDevelopment && require.resolve("react-refresh/babel")].filter(
+              Boolean
+            ),
+        },
       },
     ],
   },
@@ -29,11 +38,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: path.join(__dirname, "/public/index.html"),
-      alwaysWriteToDisk: true,
+      template: path.join(__dirname, "client/public/index.html"),
     }),
-    new HtmlWebpackHarddiskPlugin(),
-
     new webpack.HotModuleReplacementPlugin(),
-  ],
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
 };

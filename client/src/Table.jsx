@@ -1,57 +1,111 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 export default function Table() {
+  /* TODO ИТТЕРАТОР
+  Написать иттератор, который будет проходится по данным из rows, динамически создавать
+  строчки и записывать их в массив, который я потом передам в table
+*/
+  /* NOTE
+Окей, попробуем ещё раз. Что мне нужно сделать:
+отправить запрос с помощью fetch для получения данных
+обработать полученные данные
+*/
   const [rows, setRows] = useState(false);
   function getRows() {
-    fetch("http://localhost:8080/getRows")
+    fetch("http://localhost:3000/api/v1/test")
       .then((response) => {
-        return response.text();
+        return response.json();
       })
       .then((data) => {
-        setRows(data);
+        setRows(data.rows);
+        // FIXME чёт опять нагородил. С промисами пока не понятно, хочется, чтобы у меня в state были сразу данные для рендера, правда не увечен, что это хорошая идея. Возможно стоит иметь два стейта? Крч я подумаю после еды.
       });
   }
+  // function rowsMap() {}
   useEffect(() => {
-    getRows();
-  }, []);
-  function createRow() {
-    const name = prompt("Enter name");
-    const amount = prompt("Enter amount");
-    fetch("http://localhost:3001/mytable", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, amount }),
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
-        alert(data);
-        getRows();
-      });
+    if (!rows) {
+      getRows();
+    }
+  }, [rows]);
+
+  /* TODO МАССИВ
+  Создать пустой массив, в который иттератор будет вносить созданные строчки с данными, позже я буду сортировать этот массив.
+  */
+  /* FIXME У меня случился затык.
+  Я не понимаю, как мне сделать так, чтобы иттератор проходился по массиву с данными, когда они загрузятся.
+  Я проверил через setTimeout, через секунду данные становятся доступны, мне нужно каким-то образом дождаться момента, когда данные будут загружены и после этого
+  использовать иттератор.
+
+
+
+
+
+
+
+ */
+
+  /* TODO СОРТИРОВКА
+  Написать функцию для сортировки массива с строчками, будет вызываться при нажатии на одно из названий колонок
+  // STUB Вопрос, а будет ли ререндериться таблица, если поменяется массив? Я вот не уверен, хотя по идее должен
+  принимает аргумент с названием
+  Я скорее думаю, что каждой строчке нужно передать пропс который будет содержать в себе информацию о названиях колонок, который я смогу использовать каким-то образом для сортировки.
+  */
+  function tableSort(columnName) {
+    // Здесь сортировка массива
   }
-  function deleteMerchant() {
-    const id = prompt("Enter merchant id");
-    fetch(`http://localhost:3001/merchants/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
-        alert(data);
-        getRows();
-      });
+
+  /* TODO ТАБЛИЦА
+Написать const table в котором будет:
+1. Фиксированная строка с названиями колонок
+2. При нажатии на одно из названий, включается сортировка по этой колонке, от меньшего к большему
+В примере кликается прямо по названиям
+4. По умолчанию сортировка по названию от А до Я или А to Z
+5. При повторном нажатии массив показывает с конца в начало от большего к меньшему. (Как это сделать??)
+. Динамически созданные строчки с контентом (это решается выше с помощью массива и иттератора)
+ */
+
+  if (!rows) {
+    return <p>wait for it</p>;
   }
+  const rowsForRender = rows.map((row, i) => {
+    return (
+      <tr key={i}>
+        <td>{row.name}</td>
+        <td>{row.amount}</td>
+        <td>{row.longitude}</td>
+        <td>{row.date}</td>
+      </tr>
+    );
+  });
   return (
-    <div>
-      {rows || "There is no merchant data available"}
-      <br />
-      <button onClick={createRow}>Add merchant</button>
-      <br />
-      <button onClick={deleteMerchant}>Delete merchant</button>
-    </div>
+    <StyledTable>
+      <thead>
+        <tr>
+          <th onClick={() => tableSort("name")}>Название</th>
+          <th onClick={() => tableSort("amount")}>Количество</th>
+          <th onClick={() => tableSort("distance")}>Расстояние</th>
+          <th onClick={() => tableSort("date")}>Дата</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rowsForRender
+          /* Здесь должен быть массив с строчками для рендера */
+        }
+      </tbody>
+    </StyledTable>
   );
 }
+const StyledTable = styled.table`
+  margin: 0 auto;
+  font-size: 16px;
+  border: solid 1px black;
+  tr,
+  td {
+    border: solid 1px black;
+  }
+`;
+/* NOTE
+Я хочу, чтобы у меня рендерилась таблица, только если данные загрузились, как это лучше сделать?
+Я не понял, что меня не устраивает в нынешней ситуации... Пока оставлю всё как есть */
