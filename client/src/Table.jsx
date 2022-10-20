@@ -45,7 +45,7 @@ export default function Table() {
               <td>{row.name}</td>
               <td>{row.amount}</td>
               <td>{row.longitude}</td>
-              <td>{row.date}</td>
+              <td>{new Date(row.date).toLocaleDateString("ru-ru")}</td>
             </tr>
           );
         })}
