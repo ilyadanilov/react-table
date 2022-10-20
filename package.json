@@ -26,7 +26,8 @@
   "homepage": "https://github.com/ilyadanilov/table-test#readme",
   "dependencies": {
     "react": "^18.2.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

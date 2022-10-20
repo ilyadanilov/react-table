@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Table() {
   const [rows, setRows] = useState(false);
@@ -15,7 +16,7 @@ export default function Table() {
 
   useEffect(() => {
     getRows();
-  }, [rows]);
+  }, []);
 
   /* TODO СОРТИРОВКА
   Написать функцию для сортировки массива с строчками, будет вызываться при нажатии на одно из названий колонок
@@ -23,19 +24,8 @@ export default function Table() {
   function tableSort(columnName) {
     // Здесь сортировка массива
   }
-  // Иттератор, готовит строки с данными к рендеру
-  const rowsForRender = rows.map((row, i) => {
-    return (
-      <tr key={i}>
-        <td>{row.name}</td>
-        <td>{row.amount}</td>
-        <td>{row.longitude}</td>
-        <td>{row.date}</td>
-      </tr>
-    );
-  });
   if (!rows) {
-    return <p>wait for it</p>;
+    return null;
   }
 
   return (
@@ -48,7 +38,18 @@ export default function Table() {
           <th onClick={() => tableSort("date")}>Дата</th>
         </tr>
       </thead>
-      <tbody>{rowsForRender}</tbody>
+      <tbody>
+        {rows.map((row) => {
+          return (
+            <tr key={uuidv4()}>
+              <td>{row.name}</td>
+              <td>{row.amount}</td>
+              <td>{row.longitude}</td>
+              <td>{row.date}</td>
+            </tr>
+          );
+        })}
+      </tbody>
     </StyledTable>
   );
 }
@@ -57,8 +58,12 @@ const StyledTable = styled.table`
   margin: 0 auto;
   font-size: 16px;
   border: solid 1px black;
+  table-layout: fixed;
+  border-collapse: collapse;
   th,
   td {
-    border: solid 1px black;
+    text-align: left;
+    padding: 0.75em 1em;
+    border: solid 1px #cdcdcd;
   }
 `;
