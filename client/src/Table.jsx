@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
 export default function Table() {
   const [rows, setRows] = useState(false);
@@ -88,7 +90,11 @@ export default function Table() {
     <StyledTable>
       <thead>
         <tr>
-          <th onClick={() => handleColumnClick("name")}>Название</th>
+          <th onClick={() => handleColumnClick("name")}>
+            Название
+            <FontAwesomeIcon icon={solid("sort-up")} />
+            <FontAwesomeIcon icon={solid("sort-down")} />
+          </th>
           <th onClick={() => handleColumnClick("amount")}>Количество</th>
           <th onClick={() => handleColumnClick("distance")}>Расстояние</th>
           <th onClick={() => handleColumnClick("date")}>Дата</th>

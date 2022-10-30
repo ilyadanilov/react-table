@@ -1,1 +1,5 @@
-{ "presets": ["@babel/preset-env", "@babel/react"], "compact": true }
+{
+  "presets": ["@babel/preset-env", "@babel/react"],
+  "compact": true,
+  "plugins": ["macros"]
+}

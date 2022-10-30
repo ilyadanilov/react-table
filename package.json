@@ -25,6 +25,9 @@
   },
   "homepage": "https://github.com/ilyadanilov/table-test#readme",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "babel-plugin-macros": "^3.1.0",
     "react": "^18.2.0",
     "styled-components": "^5.3.6",
     "uuid": "^9.0.0"
